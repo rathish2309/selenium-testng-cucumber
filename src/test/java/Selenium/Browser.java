@@ -8,31 +8,28 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 public class Browser {
-    public static void main(String[] args) {
 
-        System.getProperty("path of the browser jar");
+    WebDriver webDriver;
 
+    public void openBrowser(String url) {
         WebDriverManager.chromedriver().setup();
-        WebDriver driver;
+        webDriver = new ChromeDriver();
+        webDriver.navigate().to(url);
+        System.out.println("Navigate to URL " + url);
+    }
 
-        String url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+    public void closeBrowser() {
+        webDriver.close();
+        webDriver.quit();
+    }
 
-        driver = new ChromeDriver();
-        driver.navigate().to(url);
-        System.out.println(driver.getTitle());
-        driver.quit();
-
-//        driver = new FirefoxDriver();
-//        driver.navigate().to(url);
-//        driver.quit();
-//
-//        driver = new EdgeDriver();
-//        driver.navigate().to(url);
-//        driver.quit();
-//
-//        driver = new SafariDriver();
-//        driver.navigate().to(url);
-//        driver.quit();
+    public static void main(String[] args) {
+        Browser browser = new Browser();
+        try {
+            browser.openBrowser("URL");
+        } finally {
+            browser.closeBrowser();
+        }
 
     }
 }
